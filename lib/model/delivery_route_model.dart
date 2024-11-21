@@ -1,5 +1,6 @@
-import 'package:boh_hummm/delivery_model.dart';
-import 'package:boh_hummm/slope_model.dart';
+import 'package:boh_hummm/model/slope_model.dart';
+
+import 'delivery_model.dart';
 
 class DeliveryRouteModel {
   final int? identifier;

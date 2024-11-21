@@ -1,4 +1,4 @@
-import 'package:boh_hummm/user_model.dart';
+import 'package:boh_hummm/model/user_model.dart';
 
 class MotorcycleModel {
   final String? brand;

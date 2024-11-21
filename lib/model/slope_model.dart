@@ -1,5 +1,5 @@
-import 'package:boh_hummm/delivery_route_model.dart';
-import 'package:boh_hummm/motorcycle_model.dart';
+import 'delivery_route_model.dart';
+import 'motorcycle_model.dart';
 
 class SlopeModel {
   final String? date;
