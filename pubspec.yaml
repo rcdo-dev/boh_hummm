@@ -13,9 +13,6 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
 
-  # Navigation and dependency injection.
-  flutter_modular: ^6.3.4
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
