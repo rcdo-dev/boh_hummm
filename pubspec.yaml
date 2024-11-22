@@ -13,6 +13,12 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
 
+  # Contains classes and methods for data persistence in SQLite.
+  sqflite: ^2.4.1
+
+  # Cross-platform path manipulation library for Dart.
+  path: ^1.9.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
