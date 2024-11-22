@@ -1,15 +1,18 @@
-import 'package:boh_hummm/model/slope_model.dart';
+// ignore_for_file: non_constant_identifier_names
 
+import 'package:boh_hummm/model/slope_model.dart';
 import 'delivery_model.dart';
 
 class DeliveryRouteModel {
-  final int? identifier;
-  final SlopeModel? slope;
+  final int? delr_id;
+  final int? delr_identifier;
+  final SlopeModel? delr_slo_id;
   final List<DeliveryModel>? deliveries;
 
   DeliveryRouteModel({
-    this.identifier,
-    this.slope,
+    this.delr_id,
+    this.delr_identifier,
+    this.delr_slo_id,
     this.deliveries,
   });
 }

@@ -1,5 +1,8 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'package:boh_hummm/dao/connection_db/i_connection_db.dart';
 
@@ -73,4 +76,24 @@ class ConnectionDbSqlite implements IConnectionDb<Database> {
       },
     );
   }
+}
+
+void main() {
+  setUpAll(() {
+    // Initialize sqflite_common_ffi
+    sqfliteFfiInit();
+    // Tells sqflite to use the database factory provided by sqflite_common_ffi
+    databaseFactory = databaseFactoryFfi;
+  });
+
+  ConnectionDbSqlite connection = ConnectionDbSqlite();
+
+  test('Must return a database connection.', () async {
+    var database = await connection.connectionDatabase();
+    expect(database, isA<Database>());
+  });
+
+  tearDownAll(() {
+    debugPrint('Tests completed.');
+  });
 }
