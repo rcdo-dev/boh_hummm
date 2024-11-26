@@ -1,7 +1,7 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import 'package:boh_hummm/dao/connection_db/i_connection_db.dart';
+import 'package:boh_hummm/config/connection_db/i_connection_db.dart';
 
 class ConnectionDbSqlite implements IConnectionDb<Database> {
   @override
