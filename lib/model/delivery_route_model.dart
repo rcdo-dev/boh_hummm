@@ -6,7 +6,7 @@ import 'delivery_model.dart';
 class DeliveryRouteModel {
   final int? delr_id;
   final int? delr_identifier;
-  final SlopeModel? delr_slo_id;
+  final int? delr_slo_id;
   final List<DeliveryModel>? deliveries;
 
   DeliveryRouteModel({
