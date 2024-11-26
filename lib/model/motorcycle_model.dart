@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:boh_hummm/model/user_model.dart';
-
 class MotorcycleModel {
   final int? mot_id;
   final String? mot_brand;

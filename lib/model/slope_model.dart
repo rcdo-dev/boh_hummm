@@ -1,7 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'delivery_route_model.dart';
-import 'motorcycle_model.dart';
 
 class SlopeModel {
   final int? slo_id;
@@ -31,7 +30,7 @@ class SlopeModel {
       slo_id: int.tryParse(map['slo_id'].toString()),
       slo_date: map['slo_date'].toString(),
       slo_value: double.tryParse(map['slo_value'].toString()),
-      slo_mot_id: int.tryParse(map['slo_value'].toString()),
+      slo_mot_id: int.tryParse(map['slo_mot_id'].toString()),
     );
   }
 }

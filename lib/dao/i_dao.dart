@@ -1,5 +1,3 @@
-import 'package:boh_hummm/model/user_model.dart';
-
 abstract interface class IDao<T> {
   Future<int> insert({required T data});
 
