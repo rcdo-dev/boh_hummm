@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'delivery_route_model.dart';
-
 class DeliveryModel {
   final int? del_id;
   final int? del_order;
