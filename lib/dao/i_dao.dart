@@ -1,6 +1,8 @@
-abstract interface class IDao<T> {
+abstract interface class IInsertDao<T> {
   Future<int> insert({required T data});
+}
 
+abstract interface class IDao<T> implements IInsertDao<T> {
   Future<List<Map<String, Object?>>> getAll();
 
   Future<T> getById({required int id});
