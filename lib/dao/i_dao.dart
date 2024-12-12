@@ -3,7 +3,7 @@ abstract interface class IInsertDao<T> {
 }
 
 abstract interface class IDao<T> implements IInsertDao<T> {
-  Future<List<Map<String, Object?>>> getAll();
+  Future<List<T>> getAll();
 
   Future<T> getById({required int id});
 

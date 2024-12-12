@@ -42,13 +42,17 @@ class MotorcycleDao implements IDao<MotorcycleModel> {
   }
 
   @override
-  Future<List<Map<String, Object?>>> getAll() async {
+  Future<List<MotorcycleModel>> getAll() async {
     Database database = await connection.connectionDatabase();
     var list = <Map<String, Object?>>[];
     try {
       list = await database.rawQuery("SELECT * FROM motorcycle");
       if (list.isNotEmpty) {
-        return list;
+        var listMotorcycleModel = <MotorcycleModel>[];
+        for (var element in list){
+          listMotorcycleModel.add(MotorcycleModel.fromMap(element));
+        }
+        return listMotorcycleModel;
       }
     } catch (e, s) {
       if (kDebugMode) {
@@ -156,7 +160,7 @@ void main() {
         if (kDebugMode) {
           print(list);
         }
-        expect(list, isA<List<Map<String, Object?>>>());
+        expect(list, isA<List<MotorcycleModel>>());
       },
     );
 
