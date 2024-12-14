@@ -26,12 +26,16 @@ class UserModel {
     return map;
   }
 
-  factory UserModel.fromMap(Map<String, Object?> map) {
+  factory UserModel.fromMap(
+    Map<String, Object?> map, {
+    List<MotorcycleModel>? motorcycles,
+  }) {
     return UserModel(
       use_id: int.tryParse(map['use_id'].toString()),
       use_name: map['use_name'].toString(),
       use_email: map['use_email'].toString(),
       use_image_path: map['use_image_path'].toString(),
+      motorcycles: motorcycles,
     );
   }
 }
