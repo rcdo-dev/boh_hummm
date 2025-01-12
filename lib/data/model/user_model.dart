@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'motorcycle_model.dart';
+import 'package:boh_hummm/data/model/motorcycle_model.dart';
 
 class UserModel {
   final int? use_id;

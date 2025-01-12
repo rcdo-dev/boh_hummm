@@ -1,6 +1,6 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'delivery_route_model.dart';
+import 'package:boh_hummm/data/model/delivery_route_model.dart';
 
 class SlopeModel {
   final int? slo_id;
