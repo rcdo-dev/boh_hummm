@@ -1,21 +1,21 @@
 import 'package:flutter/foundation.dart';
 
-import 'package:boh_hummm/config/connection_db/i_connection_db.dart';
-import 'package:boh_hummm/dao/i_dao.dart';
-import 'package:boh_hummm/model/motorcycle_model.dart';
-
 import 'package:sqflite/sqflite.dart';
 
-class MotorcycleDao implements IDao<MotorcycleModel> {
+import 'package:boh_hummm/data/model/motorcycle_model.dart';
+import 'package:boh_hummm/data/services/sqlite/connection_db/i_connection_db.dart';
+import 'package:boh_hummm/data/services/sqlite/i_service.dart';
+
+class MotorcycleService implements IService<MotorcycleModel> {
   final IConnectionDb connection;
 
-  MotorcycleDao({
+  MotorcycleService({
     required this.connection,
   });
 
   @override
-  Future<int> insert({required MotorcycleModel data}) async {
-    Database database = await connection.connectionDatabase();
+  Future<int> create({required MotorcycleModel data}) async {
+    Database database = await connection.initializeDatabase();
 
     try {
       int lastId = await database.rawInsert(
@@ -39,8 +39,8 @@ class MotorcycleDao implements IDao<MotorcycleModel> {
   }
 
   @override
-  Future<List<Map<String, Object?>>> getAll() async {
-    Database database = await connection.connectionDatabase();
+  Future<List<Map<String, Object?>>> readAll() async {
+    Database database = await connection.initializeDatabase();
     var list = <Map<String, Object?>>[];
     try {
       list = await database.rawQuery("SELECT * FROM motorcycle");
@@ -58,8 +58,8 @@ class MotorcycleDao implements IDao<MotorcycleModel> {
   }
 
   @override
-  Future<MotorcycleModel> getById({required int id}) async {
-    Database database = await connection.connectionDatabase();
+  Future<MotorcycleModel> readById({required int id}) async {
+    Database database = await connection.initializeDatabase();
     try {
       var result = await database.rawQuery(
         "SELECT * FROM motorcycle WHERE mot_id = ?",
@@ -80,7 +80,7 @@ class MotorcycleDao implements IDao<MotorcycleModel> {
 
   @override
   Future<int> update({required MotorcycleModel data}) async {
-    Database database = await connection.connectionDatabase();
+    Database database = await connection.initializeDatabase();
     try {
       int id = await database.rawUpdate(
         "UPDATE motorcycle SET mot_brand = ?, mot_type = ?, mot_cylinder_capacity = ? WHERE mot_id = ?",
@@ -104,7 +104,7 @@ class MotorcycleDao implements IDao<MotorcycleModel> {
 
   @override
   Future<int> delete({required MotorcycleModel data}) async {
-    Database database = await connection.connectionDatabase();
+    Database database = await connection.initializeDatabase();
     try {
       int id = await database.rawDelete(
         "DELETE FROM motorcycle WHERE mot_id = ?",

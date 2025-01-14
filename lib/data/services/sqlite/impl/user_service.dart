@@ -2,20 +2,20 @@ import 'package:flutter/foundation.dart';
 
 import 'package:sqflite/sqflite.dart';
 
-import 'package:boh_hummm/config/connection_db/i_connection_db.dart';
-import 'package:boh_hummm/dao/i_dao.dart';
-import 'package:boh_hummm/model/user_model.dart';
+import 'package:boh_hummm/data/model/user_model.dart';
+import 'package:boh_hummm/data/services/sqlite/connection_db/i_connection_db.dart';
+import 'package:boh_hummm/data/services/sqlite/i_service.dart';
 
-class UserDao implements IDao<UserModel> {
+class UserService implements IService<UserModel> {
   final IConnectionDb connection;
 
-  UserDao({
+  UserService({
     required this.connection,
   });
 
   @override
-  Future<int> insert({required UserModel data}) async {
-    Database database = await connection.connectionDatabase();
+  Future<int> create({required UserModel data}) async {
+    Database database = await connection.initializeDatabase();
     try {
       int lastId = await database.rawInsert(
         "INSERT INTO user(use_name, use_email, use_image_path) VALUES (?, ?, ?)",
@@ -33,8 +33,8 @@ class UserDao implements IDao<UserModel> {
   }
 
   @override
-  Future<List<Map<String, Object?>>> getAll() async {
-    Database database = await connection.connectionDatabase();
+  Future<List<Map<String, Object?>>> readAll() async {
+    Database database = await connection.initializeDatabase();
     var list = <Map<String, Object?>>[];
     try {
       list = await database.rawQuery("SELECT * FROM User");
@@ -52,8 +52,8 @@ class UserDao implements IDao<UserModel> {
   }
 
   @override
-  Future<UserModel> getById({required int id}) async {
-    Database database = await connection.connectionDatabase();
+  Future<UserModel> readById({required int id}) async {
+    Database database = await connection.initializeDatabase();
     try {
       var result = await database.rawQuery(
         "SELECT * FROM user WHERE use_id = ?",
@@ -74,7 +74,7 @@ class UserDao implements IDao<UserModel> {
 
   @override
   Future<int> update({required UserModel data}) async {
-    Database database = await connection.connectionDatabase();
+    Database database = await connection.initializeDatabase();
     try {
       int id = await database.rawUpdate(
         "UPDATE user SET use_name = ?, use_email = ?, use_image_path = ? WHERE use_id = ?",
@@ -93,7 +93,7 @@ class UserDao implements IDao<UserModel> {
 
   @override
   Future<int> delete({required UserModel data}) async {
-    Database database = await connection.connectionDatabase();
+    Database database = await connection.initializeDatabase();
     try {
       int id = await database.rawDelete(
         "DELETE FROM user WHERE use_id = ?",

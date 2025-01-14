@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import 'package:boh_hummm/config/connection_db/i_connection_db.dart';
-import 'package:boh_hummm/config/connection_db/impl/connection_db_sqlite.dart';
+import 'package:boh_hummm/data/services/connection_db/i_connection_db.dart';
+import 'package:boh_hummm/data/services/connection_db/impl/connection_db_sqlite.dart';
 import 'package:boh_hummm/dao/i_dao.dart';
 import 'package:boh_hummm/model/delivery_route_model.dart';
 

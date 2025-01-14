@@ -1,9 +1,9 @@
-import 'package:boh_hummm/config/connection_db/i_connection_db.dart';
-import 'package:boh_hummm/config/connection_db/impl/connection_db_sqlite.dart';
+import 'package:boh_hummm/data/services/connection_db/i_connection_db.dart';
+import 'package:boh_hummm/data/services/connection_db/impl/connection_db_sqlite.dart';
 import 'package:boh_hummm/controller/controller.dart';
 import 'package:boh_hummm/dao/i_dao.dart';
-import 'package:boh_hummm/dao/impl/delivery_dao.dart';
-import 'package:boh_hummm/dao/impl/user_dao.dart';
+import 'package:boh_hummm/dao/impl/delivery_service.dart';
+import 'package:boh_hummm/dao/impl/user_service.dart';
 import 'package:boh_hummm/model/delivery_model.dart';
 import 'package:boh_hummm/model/user_model.dart';
 import 'package:flutter/material.dart';

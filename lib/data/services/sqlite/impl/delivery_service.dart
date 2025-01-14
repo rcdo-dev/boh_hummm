@@ -2,20 +2,20 @@ import 'package:flutter/foundation.dart';
 
 import 'package:sqflite/sqflite.dart';
 
-import 'package:boh_hummm/config/connection_db/i_connection_db.dart';
-import 'package:boh_hummm/dao/i_dao.dart';
-import 'package:boh_hummm/model/delivery_model.dart';
+import 'package:boh_hummm/data/model/delivery_model.dart';
+import 'package:boh_hummm/data/services/sqlite/connection_db/i_connection_db.dart';
+import 'package:boh_hummm/data/services/sqlite/i_service.dart';
 
-class DeliveryDao implements IDao<DeliveryModel> {
+class DeliveryService implements IService<DeliveryModel> {
   final IConnectionDb connection;
 
-  DeliveryDao({
+  DeliveryService({
     required this.connection,
   });
 
   @override
-  Future<int> insert({required DeliveryModel data}) async {
-    Database database = await connection.connectionDatabase();
+  Future<int> create({required DeliveryModel data}) async {
+    Database database = await connection.initializeDatabase();
     try {
       int lastId = await database.rawInsert(
         "INSERT INTO delivery(del_order, del_fee, del_delr_id) VALUES (?, ?, ?)",
@@ -33,8 +33,8 @@ class DeliveryDao implements IDao<DeliveryModel> {
   }
 
   @override
-  Future<List<Map<String, Object?>>> getAll() async {
-    Database database = await connection.connectionDatabase();
+  Future<List<Map<String, Object?>>> readAll() async {
+    Database database = await connection.initializeDatabase();
     var list = <Map<String, Object?>>[];
     try {
       list = await database.rawQuery("SELECT * FROM delivery");
@@ -52,8 +52,8 @@ class DeliveryDao implements IDao<DeliveryModel> {
   }
 
   @override
-  Future<DeliveryModel> getById({required int id}) async {
-    Database database = await connection.connectionDatabase();
+  Future<DeliveryModel> readById({required int id}) async {
+    Database database = await connection.initializeDatabase();
     try {
       var result = await database.rawQuery(
         "SELECT * FROM delivery WHERE del_id = ?",
@@ -72,7 +72,7 @@ class DeliveryDao implements IDao<DeliveryModel> {
 
   @override
   Future<int> update({required DeliveryModel data}) async {
-    Database database = await connection.connectionDatabase();
+    Database database = await connection.initializeDatabase();
     try {
       int id = await database.rawUpdate(
         "UPDATE delivery SET del_order = ?, del_fee = ? WHERE del_id = ?",
@@ -91,7 +91,7 @@ class DeliveryDao implements IDao<DeliveryModel> {
 
   @override
   Future<int> delete({required DeliveryModel data}) async {
-    Database database = await connection.connectionDatabase();
+    Database database = await connection.initializeDatabase();
     try {
       int id = await database.rawDelete(
         "DELETE FROM delivery WHERE del_id = ?",
