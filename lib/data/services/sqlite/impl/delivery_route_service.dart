@@ -6,7 +6,7 @@ import 'package:boh_hummm/data/model/delivery_route_model.dart';
 import 'package:boh_hummm/data/services/sqlite/connection_db/i_connection_db.dart';
 import 'package:boh_hummm/data/services/sqlite/i_service.dart';
 
-class DeliveryRouteService implements IService<DeliveryRouteModel> {
+class DeliveryRouteService {
   final IConnectionDb connection;
 
   DeliveryRouteService({

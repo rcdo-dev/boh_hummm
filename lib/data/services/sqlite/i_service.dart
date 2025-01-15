@@ -1,11 +1,13 @@
+import 'package:async/async.dart';
+
 abstract interface class IService<T> {
-  Future<int> create({required T data});
+  Future<Result<int>> create({required T data});
 
-  Future<List<Map<String, Object?>>> readAll();
+  Future<Result<List<Map<String, Object?>>>> readAll();
 
-  Future<T> readById({required int id});
+  Future<Result<T>> readById({required int id});
 
-  Future<int> update({required T data});
+  Future<Result<int>> update({required T data});
 
-  Future<int> delete({required T data});
+  Future<Result<int>> delete({required T data});
 }

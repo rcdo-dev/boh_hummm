@@ -27,9 +27,7 @@ class UserService implements IService<UserModel> {
     } finally {
       database.close();
     }
-    return Result.error(
-      Exception('Error when trying to insert.'),
-    );
+    return Result.error(Exception('Error when trying to insert.'));
   }
 
   @override
@@ -46,9 +44,7 @@ class UserService implements IService<UserModel> {
     } finally {
       database.close();
     }
-    return Result.error(
-      Exception('Error trying to return all users.'),
-    );
+    return Result.error(Exception('Error trying to return all users.'));
   }
 
   @override
@@ -67,9 +63,7 @@ class UserService implements IService<UserModel> {
     } finally {
       database.close();
     }
-    return Result.error(
-      Exception('Error when trying to select user by id.'),
-    );
+    return Result.error(Exception('Error when trying to select user by id.'));
   }
 
   @override
@@ -86,9 +80,7 @@ class UserService implements IService<UserModel> {
     } finally {
       database.close();
     }
-    return Result.error(
-      Exception('Error when trying to update user'),
-    );
+    return Result.error(Exception('Error when trying to update user'));
   }
 
   @override
@@ -105,8 +97,6 @@ class UserService implements IService<UserModel> {
     } finally {
       database.close();
     }
-    return Result.error(
-      Exception('Error when trying to delete user'),
-    );
+    return Result.error(Exception('Error when trying to delete user'));
   }
 }
