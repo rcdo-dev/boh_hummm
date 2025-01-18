@@ -1,25 +1,31 @@
 import 'package:async/async.dart';
+import 'package:flutter/foundation.dart';
 
 import 'package:sqflite/sqflite.dart';
 
-import 'package:boh_hummm/data/model/user_model.dart';
+import 'package:boh_hummm/data/model/motorcycle_model.dart';
 import 'package:boh_hummm/data/services/sqlite/connection_db/i_connection_db.dart';
 import 'package:boh_hummm/data/services/sqlite/i_service.dart';
 
-class UserService implements IService<UserModel> {
+class MotorcycleService implements IService<MotorcycleModel> {
   final IConnectionDb connection;
 
-  UserService({
+  MotorcycleService({
     required this.connection,
   });
 
   @override
-  Future<Result<int>> create({required UserModel data}) async {
+  Future<Result<int>> create({required MotorcycleModel data}) async {
     Database database = await connection.initializeDatabase();
     try {
       int lastId = await database.rawInsert(
-        "INSERT INTO user(use_name, use_email, use_image_path) VALUES (?, ?, ?)",
-        [data.use_name, data.use_email, data.use_image_path],
+        "INSERT INTO motorcycle(mot_brand, mot_type, mot_cylinder_capacity, mot_use_id) VALUES (?, ?, ?, ?)",
+        [
+          data.mot_brand,
+          data.mot_type,
+          data.mot_cylinder_capacity,
+          data.mot_use_id,
+        ],
       );
       return Result.value(lastId);
     } catch (e, s) {
@@ -27,7 +33,7 @@ class UserService implements IService<UserModel> {
     } finally {
       database.close();
     }
-    return Result.error('Error when trying to insert.');
+    return Result.error('Error trying to insert motorcycle.');
   }
 
   @override
@@ -35,7 +41,7 @@ class UserService implements IService<UserModel> {
     Database database = await connection.initializeDatabase();
     var list = <Map<String, Object?>>[];
     try {
-      list = await database.rawQuery("SELECT * FROM User");
+      list = await database.rawQuery("SELECT * FROM motorcycle");
       if (list.isNotEmpty) {
         return Result.value(list);
       }
@@ -44,35 +50,40 @@ class UserService implements IService<UserModel> {
     } finally {
       database.close();
     }
-    return Result.error('Error trying to return all users.');
+    return Result.error('Error returning the list of motorcycles.');
   }
 
   @override
-  Future<Result<UserModel>> readById({required int id}) async {
+  Future<Result<MotorcycleModel>> readById({required int id}) async {
     Database database = await connection.initializeDatabase();
     try {
       var result = await database.rawQuery(
-        "SELECT * FROM user WHERE use_id = ?",
+        "SELECT * FROM motorcycle WHERE mot_id = ?",
         [id],
       );
       if (result.isNotEmpty) {
-        return Result.value(UserModel.fromMap(result.first));
+        return Result.value(MotorcycleModel.fromMap(result.first));
       }
     } catch (e, s) {
       Result.error(e, s);
     } finally {
       database.close();
     }
-    return Result.error('Error when trying to select user by id.');
+    return Result.error('Error returning motorcycle by ID.');
   }
 
   @override
-  Future<Result<int>> update({required UserModel data}) async {
+  Future<Result<int>> update({required MotorcycleModel data}) async {
     Database database = await connection.initializeDatabase();
     try {
       int id = await database.rawUpdate(
-        "UPDATE user SET use_name = ?, use_email = ?, use_image_path = ? WHERE use_id = ?",
-        [data.use_name, data.use_email, data.use_image_path, data.use_id],
+        "UPDATE motorcycle SET mot_brand = ?, mot_type = ?, mot_cylinder_capacity = ? WHERE mot_id = ?",
+        [
+          data.mot_brand,
+          data.mot_type,
+          data.mot_cylinder_capacity,
+          data.mot_id,
+        ],
       );
       return Result.value(id);
     } catch (e, s) {
@@ -80,16 +91,16 @@ class UserService implements IService<UserModel> {
     } finally {
       database.close();
     }
-    return Result.error('Error when trying to update user');
+    return Result.error('Error trying to update motorcycle data.');
   }
 
   @override
-  Future<Result<int>> delete({required UserModel data}) async {
+  Future<Result<int>> delete({required MotorcycleModel data}) async {
     Database database = await connection.initializeDatabase();
     try {
       int id = await database.rawDelete(
-        "DELETE FROM user WHERE use_id = ?",
-        [data.use_id],
+        "DELETE FROM motorcycle WHERE mot_id = ?",
+        [data.mot_id],
       );
       return Result.value(id);
     } catch (e, s) {
@@ -97,6 +108,6 @@ class UserService implements IService<UserModel> {
     } finally {
       database.close();
     }
-    return Result.error('Error when trying to delete user');
+    return Result.error('Error trying to delete motorcycle from database.');
   }
 }

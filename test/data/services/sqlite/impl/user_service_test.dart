@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -24,6 +25,16 @@ void main() {
     test('Must insert the data of a User object into the database', () async {
       final result = await userService.create(data: databaseUser);
       expect(result.asValue?.value, isA<int>());
+    });
+
+    test('It must return a list with the data of the Users', () async {
+      var result = await userService.readAll();
+      if (kDebugMode) {
+        // switch(result){
+        //   case result.
+        // }
+      }
+      expect(result.asValue?.value, isA<List<Map>>());
     });
   });
 
