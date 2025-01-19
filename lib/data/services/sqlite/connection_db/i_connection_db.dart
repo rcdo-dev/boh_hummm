@@ -1,3 +1,5 @@
+import 'package:boh_hummm/utils/result.dart';
+
 abstract interface class IConnectionDb<T> {
-  Future<T> initializeDatabase();
+  Future<Result<T>> initializeDatabase();
 }

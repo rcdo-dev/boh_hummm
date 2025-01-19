@@ -1,3 +1,4 @@
+import 'package:boh_hummm/utils/extensions/result_cast.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/foundation.dart';
 
@@ -16,8 +17,8 @@ void main() {
   final connection = ConnectionDbSqlite();
 
   test('Must return a database connection.', () async {
-    var database = await connection.initializeDatabase();
-    expect(database, isA<Database>());
+    var result = await connection.initializeDatabase();
+    expect(result.asOk.value, isA<Database>());
   });
 
   tearDownAll(() {

@@ -1,4 +1,4 @@
-import 'package:async/async.dart';
+import 'package:boh_hummm/utils/result.dart';
 
 abstract interface class IService<T> {
   Future<Result<int>> create({required T data});

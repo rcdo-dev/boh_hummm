@@ -15,7 +15,6 @@
 /// O modificador sealed em Dart é usado para criar uma classe selada, ou seja,
 /// uma classe que não pode ser estendida fora do arquivo onde foi declarada.
 sealed class Result<T> {
-
   /// ### Construtor constante
   ///
   /// Um construtor constante é um construtor que permite criar instâncias
@@ -38,7 +37,8 @@ sealed class Result<T> {
   ///     construtor.
   const factory Result.ok(T value) = Ok._;
 
-  const factory Result.error(Exception error) = Error._;
+  const factory Result.error(Exception error, [StackTrace stackTrace]) =
+      Error._;
 }
 
 final class Ok<T> extends Result<T> {
@@ -56,9 +56,10 @@ final class Ok<T> extends Result<T> {
 
 final class Error<T> extends Result<T> {
   final Exception error;
+  final StackTrace? stackTrace;
 
-  const Error._(this.error);
+  const Error._(this.error, [this.stackTrace]);
 
   @override
-  String toString() => 'Result<$T>.error($error)';
+  String toString() => 'Result<$T>.error($error, $stackTrace)';
 }

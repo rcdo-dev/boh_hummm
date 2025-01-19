@@ -2,23 +2,25 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'package:boh_hummm/data/services/sqlite/connection_db/i_connection_db.dart';
+import 'package:boh_hummm/utils/result.dart';
 
 class ConnectionDbSqlite implements IConnectionDb<Database> {
-
   @override
-  Future<Database> initializeDatabase() async {
-    var documentDirectoryPath = await getDatabasesPath();
-    var path = join(documentDirectoryPath, 'bohHummmLocalDatabase.db');
+  Future<Result<Database>> initializeDatabase() async {
+    try {
+      var documentDirectoryPath = await getDatabasesPath();
+      var path = join(documentDirectoryPath, 'bohHummmLocalDatabase.db');
 
-    return await openDatabase(
-      path,
-      version: 1,
-      onConfigure: (db) async {
-        await db.execute("PRAGMA foreign_keys = ON");
-      },
-      onCreate: (db, version) async {
-        await db.execute(
-          '''
+      return Result.ok(
+        await openDatabase(
+          path,
+          version: 1,
+          onConfigure: (db) async {
+            await db.execute("PRAGMA foreign_keys = ON");
+          },
+          onCreate: (db, version) async {
+            await db.execute(
+              '''
           CREATE TABLE user(
             use_id INTEGER PRIMARY KEY AUTOINCREMENT,
             use_name TEXT UNIQUE NOT NULL,
@@ -26,9 +28,9 @@ class ConnectionDbSqlite implements IConnectionDb<Database> {
             use_image_path TEXT
           );
           ''',
-        );
-        await db.execute(
-          '''
+            );
+            await db.execute(
+              '''
           CREATE TABLE motorcycle (
             mot_id INTEGER PRIMARY KEY AUTOINCREMENT,
             mot_brand TEXT,
@@ -38,9 +40,9 @@ class ConnectionDbSqlite implements IConnectionDb<Database> {
             FOREIGN KEY (mot_use_id) REFERENCES user (use_id) ON DELETE CASCADE
           );
           ''',
-        );
-        await db.execute(
-          '''
+            );
+            await db.execute(
+              '''
           CREATE TABLE slope (
             slo_id INTEGER PRIMARY KEY AUTOINCREMENT,
             slo_date DATE NOT NULL,
@@ -49,9 +51,9 @@ class ConnectionDbSqlite implements IConnectionDb<Database> {
             FOREIGN KEY (slo_mot_id) REFERENCES motorcycle (mot_id) ON DELETE CASCADE
           );
           ''',
-        );
-        await db.execute(
-          '''
+            );
+            await db.execute(
+              '''
           CREATE TABLE delivery_route(
             delr_id INTEGER PRIMARY KEY AUTOINCREMENT,
             delr_identifier INTEGER,
@@ -59,9 +61,9 @@ class ConnectionDbSqlite implements IConnectionDb<Database> {
             FOREIGN KEY (delr_slo_id) REFERENCES slope (slo_id) ON DELETE CASCADE
           );
           ''',
-        );
-        await db.execute(
-          '''
+            );
+            await db.execute(
+              '''
           CREATE TABLE delivery(
             del_id INTEGER PRIMARY KEY AUTOINCREMENT,
             del_order INTEGER,
@@ -70,8 +72,13 @@ class ConnectionDbSqlite implements IConnectionDb<Database> {
             FOREIGN KEY (del_delr_id) REFERENCES delivery_route (delr_id) ON DELETE CASCADE
           );
           ''',
-        );
-      },
-    );
+            );
+          },
+        ),
+      );
+    } on Exception catch (e, s) {
+      Result.error(e, s);
+    }
+    return Result.error(Exception('Database creation or connection failed.'));
   }
 }

@@ -19,9 +19,6 @@ dependencies:
   # Cross-platform path manipulation library for Dart.
   path: ^1.9.0
 
-  # Error handling with Result objects
-  async: ^2.11.0
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
