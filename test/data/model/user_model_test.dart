@@ -7,7 +7,7 @@ import '../../../testing/data/model/user_model.dart';
 
 void main() {
   test('Must transform a User object into a Map.', () {
-    var map = databaseUser.toMap();
+    var map = userPLaMNuM.toMap();
     if (kDebugMode) {
       print(map);
     }
@@ -15,7 +15,7 @@ void main() {
   });
 
   test('Must transform a map into a User object.', () {
-    var user = UserModel.fromMap(databaseUser.toMap());
+    var user = UserModel.fromMap(userPLaMNuM.toMap());
     if (kDebugMode) {
       print(
         '''

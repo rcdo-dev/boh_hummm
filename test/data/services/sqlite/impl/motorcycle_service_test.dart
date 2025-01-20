@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
+import 'package:boh_hummm/data/model/motorcycle_model.dart';
 import 'package:boh_hummm/data/services/sqlite/connection_db/i_connection_db.dart';
 import 'package:boh_hummm/utils/extensions/result_cast.dart';
 
@@ -28,16 +29,37 @@ void main() {
       expect(result.asOk.value, isA<int>());
     });
 
-    test('Should return an exception when inserting a duplicate motorcycle.',
-        () async {
-      final result = await motorcycleService.create(data: motorcycleHonda);
-      if(kDebugMode){
-        print(result.asError.error);
+    test('Should return a list of motorcycles', () async {
+      final result = await motorcycleService.readAll();
+      if (kDebugMode) {
+        print(result.asOk.value);
       }
-
-      // Corrigir banco, está inserindo a mesma moto várias vezes.
-      expect(result.asError.error, isA<Exception>());
+      expect(result.asOk.value, isA<List<Map>>());
     });
+  });
+
+  test('Must return a MotorcycleModel object by Id', () async {
+    final result = await motorcycleService.readById(id: 2);
+    expect(result.asOk.value, isA<MotorcycleModel>());
+  });
+
+  test('Must update a MotorcycleModel object.', () async {
+    final result = await motorcycleService.update(
+      data: MotorcycleModel(
+        mot_id: 2,
+        mot_cylinder_capacity: 400.0,
+        mot_type: 'Falcon',
+        mot_brand: 'Honda',
+      ),
+    );
+    expect(result.asOk.value, isA<int>());
+  });
+
+  test('Must delete a MotorcycleModel object.', () async {
+    final result = await motorcycleService.delete(
+      data: MotorcycleModel(mot_id: 1),
+    );
+    expect(result.asOk.value, isA<int>());
   });
 
   tearDownAll(() {
