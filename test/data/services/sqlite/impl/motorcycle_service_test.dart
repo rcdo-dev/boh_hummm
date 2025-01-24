@@ -57,7 +57,7 @@ void main() {
 
   test('Must delete a MotorcycleModel object.', () async {
     final result = await motorcycleService.delete(
-      data: MotorcycleModel(mot_id: 1),
+      data: MotorcycleModel(mot_id: 2),
     );
     expect(result.asOk.value, isA<int>());
   });

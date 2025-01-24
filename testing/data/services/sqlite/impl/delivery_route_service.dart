@@ -1,9 +1,8 @@
-import 'package:sqflite/sqflite.dart';
-
 import 'package:boh_hummm/data/model/delivery_route_model.dart';
 import 'package:boh_hummm/data/services/sqlite/connection_db/i_connection_db.dart';
 import 'package:boh_hummm/data/services/sqlite/i_service.dart';
 import 'package:boh_hummm/utils/result.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DeliveryRouteService implements IService<DeliveryRouteModel> {
   final IConnectionDb connection;

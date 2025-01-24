@@ -66,7 +66,7 @@ class ConnectionDbSqlite implements IConnectionDb<Database> {
               '''
           CREATE TABLE delivery(
             del_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            del_order INTEGER,
+            del_order INTEGER UNIQUE,
             del_fee REAL,
             del_delr_id INTEGER NOT NULL,
             FOREIGN KEY (del_delr_id) REFERENCES delivery_route (delr_id) ON DELETE CASCADE

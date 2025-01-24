@@ -1,12 +1,11 @@
-import 'package:flutter/foundation.dart';
-
 import 'package:sqflite/sqflite.dart';
 
 import 'package:boh_hummm/data/model/delivery_model.dart';
 import 'package:boh_hummm/data/services/sqlite/connection_db/i_connection_db.dart';
 import 'package:boh_hummm/data/services/sqlite/i_service.dart';
+import 'package:boh_hummm/utils/result.dart';
 
-class DeliveryService {
+class DeliveryService implements IService<DeliveryModel> {
   final IConnectionDb connection;
 
   DeliveryService({
@@ -14,97 +13,102 @@ class DeliveryService {
   });
 
   @override
-  Future<int> create({required DeliveryModel data}) async {
-    Database database = await connection.initializeDatabase();
-    try {
-      int lastId = await database.rawInsert(
-        "INSERT INTO delivery(del_order, del_fee, del_delr_id) VALUES (?, ?, ?)",
-        [data.del_order, data.del_fee, data.del_delr_id],
-      );
-      return lastId;
-    } catch (e, s) {
-      if (kDebugMode) {
-        print('Exception: $e.\n\nStackTrace: $s.');
+  Future<Result<int>> create({required DeliveryModel data}) async {
+    var result = await connection.initializeDatabase();
+
+    if (result is Ok<Database>) {
+      try {
+        int lastId = await result.value.rawInsert(
+          "INSERT INTO delivery(del_order, del_fee, del_delr_id) VALUES (?, ?, ?)",
+          [data.del_order, data.del_fee, data.del_delr_id],
+        );
+        return Result.ok(lastId);
+      } on Exception catch (e, s) {
+        Result.error(e, s);
+      } finally {
+        result.value.close();
       }
-    } finally {
-      database.close();
     }
-    throw 'Error trying to insert a delivery.';
+    return Result.error(Exception('Error trying to insert a delivery.'));
   }
 
   @override
-  Future<List<Map<String, Object?>>> readAll() async {
-    Database database = await connection.initializeDatabase();
+  Future<Result<List<Map<String, Object?>>>> readAll() async {
+    var result = await connection.initializeDatabase();
     var list = <Map<String, Object?>>[];
-    try {
-      list = await database.rawQuery("SELECT * FROM delivery");
-      if (list.isNotEmpty) {
-        return list;
+
+    if (result is Ok<Database>) {
+      try {
+        list = await result.value.rawQuery("SELECT * FROM delivery");
+        if (list.isNotEmpty) {
+          return Result.ok(list);
+        }
+      } on Exception catch (e, s) {
+        Result.error(e, s);
+      } finally {
+        result.value.close();
       }
-    } catch (e, s) {
-      if (kDebugMode) {
-        print('Exception: $e.\n\nStackTrace: $s.');
-      }
-    } finally {
-      database.close();
     }
-    throw 'Error trying to get all deliveries.';
+    return Result.error(Exception('Error trying to get all deliveries.'));
   }
 
   @override
-  Future<DeliveryModel> readById({required int id}) async {
-    Database database = await connection.initializeDatabase();
-    try {
-      var result = await database.rawQuery(
-        "SELECT * FROM delivery WHERE del_id = ?",
-        [id],
-      );
-      return DeliveryModel.fromMap(result.first);
-    } catch (e, s) {
-      if (kDebugMode) {
-        print('Exception: $e.\n\nStackTrace: $s.');
+  Future<Result<DeliveryModel>> readById({required int id}) async {
+    var result = await connection.initializeDatabase();
+
+    if (result is Ok<Database>) {
+      try {
+        var response = await result.value.rawQuery(
+          "SELECT * FROM delivery WHERE del_id = ?",
+          [id],
+        );
+        return Result.ok(DeliveryModel.fromMap(response.first));
+      } on Exception catch (e, s) {
+        Result.error(e, s);
+      } finally {
+        result.value.close();
       }
-    } finally {
-      database.close();
     }
-    throw 'Error returning delivery by ID.';
+    return Result.error(Exception('Error returning delivery by ID.'));
   }
 
   @override
-  Future<int> update({required DeliveryModel data}) async {
-    Database database = await connection.initializeDatabase();
-    try {
-      int id = await database.rawUpdate(
-        "UPDATE delivery SET del_order = ?, del_fee = ? WHERE del_id = ?",
-        [data.del_order, data.del_fee, data.del_id],
-      );
-      return id;
-    } catch (e, s) {
-      if (kDebugMode) {
-        print('Exception: $e.\n\nStackTrace: $s.');
+  Future<Result<int>> update({required DeliveryModel data}) async {
+    var result = await connection.initializeDatabase();
+
+    if (result is Ok<Database>) {
+      try {
+        int id = await result.value.rawUpdate(
+          "UPDATE delivery SET del_order = ?, del_fee = ? WHERE del_id = ?",
+          [data.del_order, data.del_fee, data.del_id],
+        );
+        return Result.ok(id);
+      } on Exception catch (e, s) {
+        Result.error(e, s);
+      } finally {
+        result.value.close();
       }
-    } finally {
-      database.close();
     }
-    throw 'Error trying to update delivery.';
+    return Result.error(Exception('Error trying to update delivery.'));
   }
 
   @override
-  Future<int> delete({required DeliveryModel data}) async {
-    Database database = await connection.initializeDatabase();
-    try {
-      int id = await database.rawDelete(
-        "DELETE FROM delivery WHERE del_id = ?",
-        [data.del_id],
-      );
-      return id;
-    } catch (e, s) {
-      if (kDebugMode) {
-        print('Exception: $e.\n\nStackTrace: $s.');
+  Future<Result<int>> delete({required DeliveryModel data}) async {
+    var result = await connection.initializeDatabase();
+
+    if (result is Ok<Database>) {
+      try {
+        int id = await result.value.rawDelete(
+          "DELETE FROM delivery WHERE del_id = ?",
+          [data.del_id],
+        );
+        return Result.ok(id);
+      } on Exception catch (e, s) {
+        Result.error(e, s);
+      } finally {
+        result.value.close();
       }
-    } finally {
-      database.close();
     }
-    throw 'Error deleting delivery.';
+    return Result.error(Exception('Error deleting delivery.'));
   }
 }

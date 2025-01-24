@@ -5,3 +5,9 @@ final deliveryOne = DeliveryModel(
   del_fee: 10.00,
   del_delr_id: 1,
 );
+
+final deliveryTwo = DeliveryModel(
+  del_order: 005,
+  del_fee: 12.00,
+  del_delr_id: 1,
+);
