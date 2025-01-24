@@ -1,7 +1,8 @@
 import 'package:boh_hummm/data/model/user_model.dart';
 
 final userPLaMNuM = UserModel(
-  use_id: 1, // O id não tem que ir. auto increment.
+  // O id não tem que ir. auto increment. | Só esta aqui por conta do teste do model.
+  use_id: 1,
   use_name: 'PLaMNuM',
   use_email: 'PLaMNuM@test.com',
   use_image_path: 'path/plamnum.jpg',
