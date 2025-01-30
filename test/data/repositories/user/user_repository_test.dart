@@ -1,3 +1,5 @@
+import 'package:boh_hummm/domain/entities/user_entity.dart';
+import 'package:boh_hummm/utils/extensions/result_cast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -10,6 +12,7 @@ import 'package:boh_hummm/utils/result.dart';
 import '../../../../testing/data/model/user_model.dart';
 import '../../../../testing/data/repositories/user/user_repository.dart';
 import '../../../../testing/data/services/sqlite/connection_db/impl/connection_db_sqlite.dart';
+import '../../../../testing/data/services/sqlite/impl/motorcycle_service.dart';
 
 void main() {
   setUpAll(() {
@@ -19,13 +22,63 @@ void main() {
     databaseFactory = databaseFactoryFfi;
   });
 
-  IConnectionDb connection = ConnectionDbSqlite();
-  UserService userService = UserService(connection: connection);
-  UserRepository userRepository = UserRepository(userService: userService);
+  late IConnectionDb connection;
+  late UserService userService;
+  late MotorcycleService motorcycleService;
+  late UserRepository userRepository;
+
+  setUp(() {
+    connection = ConnectionDbSqlite();
+    userService = UserService(connection: connection);
+    motorcycleService = MotorcycleService(connection: connection);
+    userRepository = UserRepository(
+      userService: userService,
+      motorcycleService: motorcycleService,
+    );
+  });
 
   test('Must insert a UserEntity object', () async {
     final result = await userRepository.createUser(user: userREVIeGe);
     expect(result, isA<Ok<void>>());
+  });
+
+  test('Should return an exception when inserting a duplicate user.', () async {
+    final result = await userRepository.createUser(user: userREVIeGe);
+    expect(result, isA<Error<void>>());
+  });
+
+  test('Must return a list of UserEntity objects', () async {
+    final result = await userRepository.readAllUsers();
+    if (kDebugMode) {
+      for (var element in result.asOk.value) {
+        print(
+          'name: ${element.name}\nemail: ${element.email}\nimage: ${element.imagePath}\nmotorcycles: ${element.motorcycles}\n\n',
+        );
+      }
+    }
+    expect(result, isA<Ok<List<UserEntity>>>());
+  });
+
+  test('Must return a list of UserEntity objects with Motorcycle list',
+      () async {
+    final result = await userRepository.readAllUsersWithMotorcycles();
+    if (kDebugMode) {
+      for (var element in result.asOk.value) {
+        print(
+          'name: ${element.name}\nemail: ${element.email}\nimage: ${element.imagePath}\nmotorcycles: ${element.motorcycles!.isEmpty ? [] : element.motorcycles![0].brand}\n\n',
+        );
+      }
+    }
+    expect(result, isA<Ok<List<UserEntity>>>());
+  });
+
+  test('Must return a UserEntity object with Motorcycle list', () async {
+    final result = await userRepository.readUserWithMotorcyclesById(id: 2);
+    if (kDebugMode) {
+      print(
+          'User:${result.asOk.value.name}\nType: ${result.asOk.value.motorcycles!.isNotEmpty ? result.asOk.value.motorcycles![0].type : []}');
+    }
+    expect(result, isA<Ok<UserEntity>>());
   });
 
   tearDownAll(() {
