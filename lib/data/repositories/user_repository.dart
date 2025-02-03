@@ -1,11 +1,10 @@
 import 'package:boh_hummm/data/model/user_model.dart';
+import 'package:boh_hummm/data/services/sqlite/impl/motorcycle_service.dart';
 import 'package:boh_hummm/data/services/sqlite/impl/user_service.dart';
 import 'package:boh_hummm/domain/entities/motorcycle_entity.dart';
 import 'package:boh_hummm/domain/entities/user_entity.dart';
 import 'package:boh_hummm/utils/extensions/result_cast.dart';
 import 'package:boh_hummm/utils/result.dart';
-
-import '../../services/sqlite/impl/motorcycle_service.dart';
 
 class UserRepository {
   final UserService _userService;
@@ -133,7 +132,7 @@ class UserRepository {
     try {
       var resultUsers = await _userService.readAll();
       var existingUser = resultUsers.asOk.value.firstWhere(
-        (map) => map['use_email'] == userEntity.email,
+            (map) => map['use_email'] == userEntity.email,
         orElse: () => {},
       );
       var userId = existingUser['use_id'] as int;
@@ -159,7 +158,7 @@ class UserRepository {
     try {
       var resultUsers = await _userService.readAll();
       var existingUser = resultUsers.asOk.value.firstWhere(
-        (map) => map['use_email'] == userEntity.email,
+            (map) => map['use_email'] == userEntity.email,
         orElse: () => {},
       );
       var userId = existingUser['use_id'] as int;
