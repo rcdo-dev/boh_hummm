@@ -5,7 +5,7 @@ import 'package:boh_hummm/domain/entities/user_entity.dart';
 import 'package:boh_hummm/utils/extensions/result_cast.dart';
 import 'package:boh_hummm/utils/result.dart';
 
-import '../../services/sqlite/impl/motorcycle_service.dart';
+import '../services/sqlite/impl/motorcycle_service.dart';
 
 class UserRepository {
   final UserService _userService;

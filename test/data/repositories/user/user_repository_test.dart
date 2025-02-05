@@ -10,7 +10,7 @@ import 'package:boh_hummm/utils/extensions/result_cast.dart';
 import 'package:boh_hummm/utils/result.dart';
 
 import '../../../../testing/data/model/user_model.dart';
-import '../../../../testing/data/repositories/user/user_repository.dart';
+import '../../../../testing/data/repositories/user_repository.dart';
 import '../../../../testing/data/services/sqlite/connection_db/impl/connection_db_sqlite.dart';
 import '../../../../testing/data/services/sqlite/impl/motorcycle_service.dart';
 
