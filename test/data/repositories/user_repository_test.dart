@@ -54,20 +54,7 @@ void main() {
       if (kDebugMode) {
         for (var element in result.asOk.value) {
           print(
-            'name: ${element.name}\nemail: ${element.email}\nimage: ${element.imagePath}\nmotorcycles: ${element.motorcycles}\n\n',
-          );
-        }
-      }
-      expect(result, isA<Ok<List<UserEntity>>>());
-    });
-
-    test('Must return a list of UserEntity objects with Motorcycle list',
-        () async {
-      final result = await userRepository.readAllUsersWithMotorcycles();
-      if (kDebugMode) {
-        for (var element in result.asOk.value) {
-          print(
-            'name: ${element.name}\nemail: ${element.email}\nimage: ${element.imagePath}\nmotorcycles: ${element.motorcycles!.isEmpty ? [] : element.motorcycles![0].brand}\n\n',
+            'name: ${element.name}\nemail: ${element.email}\nimage: ${element.imagePath}\nmotorcycles: ${element.motorcycles?.first.brand} | ${element.motorcycles?.first.type}\n\n',
           );
         }
       }
@@ -75,15 +62,11 @@ void main() {
     });
 
     test('Must return a user by Id.', () async {
-      final result = await userRepository.readUserById(id: 2);
-      expect(result, isA<Ok<UserEntity>>());
-    });
-
-    test('Must return a UserEntity object with Motorcycle list', () async {
-      final result = await userRepository.readUserWithMotorcyclesById(id: 1);
+      final result = await userRepository.readUserById(id: 3);
       if (kDebugMode) {
         print(
-            'User:${result.asOk.value.name}\nType: ${result.asOk.value.motorcycles!.isNotEmpty ? result.asOk.value.motorcycles![0].type : []}');
+          'User:${result.asOk.value.name}\nType: ${result.asOk.value.motorcycles?.first.type}',
+        );
       }
       expect(result, isA<Ok<UserEntity>>());
     });

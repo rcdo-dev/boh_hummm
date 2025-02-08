@@ -32,23 +32,6 @@ class UserRepository {
 
   Future<Result<List<UserEntity>>> readAllUsers() async {
     try {
-      var result = await _userService.readAll();
-      switch (result) {
-        case Ok<List<Map>>():
-          final listMap = result.asOk.value;
-          return Result.ok(
-            listMap.map((map) => UserEntity.fromMap(map)).toList(),
-          );
-        case Error<List<Map>>():
-          return Result.error(result.asError.error);
-      }
-    } on Exception catch (e, s) {
-      return Result.error(e, s);
-    }
-  }
-
-  Future<Result<List<UserEntity>>> readAllUsersWithMotorcycles() async {
-    try {
       var resultUsers = await _userService.readAll();
       var resultMotorcycles = await _motorcycleService.readAll();
 
@@ -84,21 +67,7 @@ class UserRepository {
     }
   }
 
-  Future<Result<UserEntity>> readUserById({required int id}) async {
-    try {
-      var resultUser = await _userService.readById(id: id);
-      var userEntity = UserEntity(
-        name: resultUser.asOk.value.use_name,
-        email: resultUser.asOk.value.use_email,
-        imagePath: resultUser.asOk.value.use_image_path,
-      );
-      return Result.ok(userEntity);
-    } on Exception catch (e, s) {
-      return Result.error(e, s);
-    }
-  }
-
-  Future<Result<UserEntity>> readUserWithMotorcyclesById({
+  Future<Result<UserEntity>> readUserById({
     required int id,
   }) async {
     try {

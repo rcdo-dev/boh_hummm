@@ -13,11 +13,13 @@ class UserEntity {
     this.motorcycles,
   });
 
-  factory UserEntity.fromMap(Map<String, Object?> map) {
+  factory UserEntity.fromMap(Map<String, Object?> map,
+      {List<MotorcycleEntity>? motorcycles}) {
     return UserEntity(
       name: map['use_name'] as String,
       email: map['use_email'] as String,
       imagePath: map['use_image_path'] as String,
+      motorcycles: motorcycles ?? [],
     );
   }
 }
