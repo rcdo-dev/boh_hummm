@@ -65,7 +65,7 @@ void main() {
       final result = await userRepository.readUserById(id: 3);
       if (kDebugMode) {
         print(
-          'User:${result.asOk.value.name}\nType: ${result.asOk.value.motorcycles?.first.type}',
+          'User:${result.asOk.value.name}\nQuantity: ${result.asOk.value.motorcycles?.length}',
         );
       }
       expect(result, isA<Ok<UserEntity>>());

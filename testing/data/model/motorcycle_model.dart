@@ -13,3 +13,9 @@ final motorcycleYamaha = MotorcycleEntity(
   type: 'Fazer',
   cylinderCapacity: 250.0,
 );
+
+final motorcycleHarley = MotorcycleEntity(
+  brand: 'Harley-Davidson',
+  type: 'Cruiser',
+  cylinderCapacity: 883.0,
+);

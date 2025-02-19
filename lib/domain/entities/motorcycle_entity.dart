@@ -16,11 +16,14 @@ class MotorcycleEntity {
     this.slope,
   });
 
-  factory MotorcycleEntity.fromMap(Map<String, Object?> map) {
+  factory MotorcycleEntity.fromMap(Map<String, Object?> map,
+      {UserEntity? user, SlopeEntity? slope}) {
     return MotorcycleEntity(
       brand: map['mot_brand'] as String,
       type: map['mot_type'] as String,
       cylinderCapacity: map['mot_cylinder_capacity'] as double,
+      user: user,
+      slope: slope,
     );
   }
 }

@@ -79,8 +79,7 @@ class UserRepository {
       var motorcycleList = <MotorcycleEntity>[];
 
       for (var motorcycle in resultMotorcycles.asOk.value) {
-        if (resultMotorcycles.asOk.value
-            .any((map) => map['mot_use_id'] == userId)) {
+        if (motorcycle['mot_use_id'] == userId) {
           var motorcycleEntity = MotorcycleEntity.fromMap(motorcycle);
           motorcycleList.add(motorcycleEntity);
         }

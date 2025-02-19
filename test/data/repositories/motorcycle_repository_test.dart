@@ -32,7 +32,7 @@ void main() {
 
     test('Must insert a motorcycle object.', () async {
       final result = await motorcycleRepository.createMotorcycle(
-        motorcycleEntity: motorcycleYamaha,
+        motorcycleEntity: motorcycleHarley,
         idUser: 3,
       );
       expect(result, isA<Ok<void>>());
