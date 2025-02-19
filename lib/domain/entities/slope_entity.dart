@@ -13,4 +13,17 @@ class SlopeEntity {
     this.motorcycle,
     this.deliveryRoutes,
   });
+
+  factory SlopeEntity.fromMap(
+    Map<String, Object?> map, {
+    MotorcycleEntity? motorcycle,
+    List<DeliveryRouteEntity>? deliveryRoutes,
+  }) {
+    return SlopeEntity(
+      date: map['slo_date'] as String,
+      value: map['slo_value'] as double,
+      motorcycle: motorcycle,
+      deliveryRoutes: deliveryRoutes ?? [],
+    );
+  }
 }
