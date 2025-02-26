@@ -1,3 +1,4 @@
+import 'package:boh_hummm/data/services/sqlite/impl/slope_service.dart';
 import 'package:boh_hummm/utils/extensions/result_cast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -26,15 +27,18 @@ void main() {
     late IConnectionDb connection;
     late MotorcycleService motorcycleService;
     late UserService userService;
+    late SlopeService slopeService;
     late MotorcycleRepository motorcycleRepository;
 
     setUp(() {
       connection = ConnectionDbSqlite();
       motorcycleService = MotorcycleService(connection: connection);
       userService = UserService(connection: connection);
+      slopeService = SlopeService(connection: connection);
       motorcycleRepository = MotorcycleRepository(
         motorcycleService: motorcycleService,
         userService: userService,
+        slopeService: slopeService,
       );
     });
 
@@ -50,11 +54,31 @@ void main() {
         () async {
       final result = await motorcycleRepository.readAllMotorcycles();
       if (kDebugMode) {
-        for (var moto in result.asOk.value){
-          print(moto.user?.name);
+        for (var moto in result.asOk.value) {
+          print('''
+            Marca: ${moto.brand},
+            Modelo: ${moto.type},
+            Cilindradas: ${moto.cylinderCapacity},
+            Usuário: ${moto.user?.name};
+            Encosta: ${moto.slope?.value ?? 0};
+              ''');
         }
       }
       expect(result, isA<Ok<List<MotorcycleEntity>>>());
+    });
+
+    test('Must return a motorcycle by id', () async {
+      final result = await motorcycleRepository.readMotorcycleById(id: 5);
+      if (kDebugMode) {
+        print('''
+          Marca: ${result.asOk.value.brand},
+          Modelo: ${result.asOk.value.type},
+          Cilindradas: ${result.asOk.value.cylinderCapacity},
+          Usuário: ${result.asOk.value.user?.name};
+          Encosta: ${result.asOk.value.slope?.value ?? 0};
+        ''');
+      }
+      expect(result, isA<Ok<MotorcycleEntity>>());
     });
 
     tearDownAll(() {
