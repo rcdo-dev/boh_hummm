@@ -1,18 +1,19 @@
-import 'package:boh_hummm/data/services/sqlite/impl/slope_service.dart';
-import 'package:boh_hummm/utils/extensions/result_cast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'package:boh_hummm/data/services/sqlite/connection_db/i_connection_db.dart';
+import 'package:boh_hummm/data/services/sqlite/impl/slope_service.dart';
 import 'package:boh_hummm/domain/entities/motorcycle_entity.dart';
+import 'package:boh_hummm/utils/extensions/result_cast.dart';
 import 'package:boh_hummm/utils/result.dart';
 
 import '../../../testing/data/model/motorcycle_model.dart';
 import '../../../testing/data/repositories/motorcycle_repository.dart';
 import '../../../testing/data/services/sqlite/connection_db/impl/connection_db_sqlite.dart';
 import '../../../testing/data/services/sqlite/impl/motorcycle_service.dart';
+
 import '../../../testing/data/services/sqlite/impl/user_service.dart';
 
 void main() {
@@ -79,6 +80,26 @@ void main() {
         ''');
       }
       expect(result, isA<Ok<MotorcycleEntity>>());
+    });
+
+    test('Must update a motorcycle', () async {
+      final result = await motorcycleRepository.updateMotorcycle(
+        motorcycleEntity: MotorcycleEntity(
+          brand: 'Yamaha',
+          type: 'Fazer',
+          cylinderCapacity: 300.0,
+        ),
+      );
+      expect(result, isA<Ok<void>>());
+    });
+
+    test('Must delete a motorcycle', () async {
+      final result = await motorcycleRepository.deleteMotorcycle(
+        motorcycleEntity: MotorcycleEntity(
+          type: 'Fazer',
+        ),
+      );
+      expect(result, isA<Ok<void>>());
     });
 
     tearDownAll(() {

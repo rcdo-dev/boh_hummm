@@ -1,13 +1,12 @@
 import 'package:boh_hummm/data/model/motorcycle_model.dart';
+import 'package:boh_hummm/data/services/sqlite/impl/motorcycle_service.dart';
 import 'package:boh_hummm/data/services/sqlite/impl/slope_service.dart';
+import 'package:boh_hummm/data/services/sqlite/impl/user_service.dart';
 import 'package:boh_hummm/domain/entities/motorcycle_entity.dart';
 import 'package:boh_hummm/domain/entities/slope_entity.dart';
 import 'package:boh_hummm/domain/entities/user_entity.dart';
 import 'package:boh_hummm/utils/extensions/result_cast.dart';
 import 'package:boh_hummm/utils/result.dart';
-
-import '../services/sqlite/impl/motorcycle_service.dart';
-import '../services/sqlite/impl/user_service.dart';
 
 class MotorcycleRepository {
   final MotorcycleService _motorcycleService;
