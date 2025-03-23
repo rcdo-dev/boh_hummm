@@ -13,6 +13,12 @@ final userCoNTeNI = UserEntity(
   imagePath: 'path/conteni.jpg',
 );
 
+final ricardoOunico = UserEntity(
+  name: 'Ricardo, o único!',
+  email: 'ounico@test.com',
+  imagePath: 'path/ounico.jpg',
+);
+
 final userPLaMNuM = UserModel(
   use_name: 'PLaMNuM',
   use_email: 'PLaMNuM@test.com',
