@@ -34,25 +34,21 @@ class DeliveryRouteService implements IService<DeliveryRouteModel> {
 
   @override
   Future<Result<List<Map<String, Object?>>>> readAll() {
-    // TODO: implement readAll
     throw UnimplementedError();
   }
 
   @override
   Future<Result<DeliveryRouteModel>> readById({required int id}) {
-    // TODO: implement readById
     throw UnimplementedError();
   }
 
   @override
   Future<Result<int>> update({required DeliveryRouteModel data}) {
-    // TODO: implement update
     throw UnimplementedError();
   }
 
   @override
   Future<Result<int>> delete({required DeliveryRouteModel data}) {
-    // TODO: implement delete
     throw UnimplementedError();
   }
 }

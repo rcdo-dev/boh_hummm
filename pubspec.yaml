@@ -14,10 +14,10 @@ dependencies:
   cupertino_icons: ^1.0.8
 
   # Contains classes and methods for data persistence in SQLite.
-  sqflite: ^2.4.1
+  sqflite: ^2.4.2
 
   # Cross-platform path manipulation library for Dart.
-  path: ^1.9.0
+  path: ^1.9.1
 
 dev_dependencies:
   flutter_test:
@@ -26,7 +26,7 @@ dev_dependencies:
 
   # Allow the use of SQLite through the FFI interface in environments where SQLite is not natively available or
   # where access to native APIs is required. Allows mocking sqflite during flutter regular unit testing.
-  sqflite_common_ffi: ^2.3.4+3
+  sqflite_common_ffi: ^2.3.5
 
 flutter:
   uses-material-design: true

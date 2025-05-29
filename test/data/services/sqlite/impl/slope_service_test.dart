@@ -58,7 +58,7 @@ void main() {
     });
 
     test('Must delete a SlopeModel object', () async {
-      final result = await slopeService.delete(
+      await slopeService.delete(
         data: SlopeModel(
           slo_id: 2,
         ),

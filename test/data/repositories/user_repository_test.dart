@@ -54,7 +54,7 @@ void main() {
       if (kDebugMode) {
         for (var element in result.asOk.value) {
           print(
-            'name: ${element.name}\nemail: ${element.email}\nimage: ${element.imagePath}\nmotorcycles: ${element.motorcycles?.first.brand} | ${element.motorcycles?.first.type}\n\n',
+            'name: ${element.name}\nemail: ${element.email}\nimage: ${element.imagePath}\nmotorcycles: ${element.motorcycles.first.brand} | ${element.motorcycles.first.type}\n\n',
           );
         }
       }
@@ -65,7 +65,7 @@ void main() {
       final result = await userRepository.readUserById(id: 3);
       if (kDebugMode) {
         print(
-          'User:${result.asOk.value.name}\nQuantity: ${result.asOk.value.motorcycles?.length}',
+          'User:${result.asOk.value.name}\nQuantity: ${result.asOk.value.motorcycles.length}',
         );
       }
       expect(result, isA<Ok<UserEntity>>());
