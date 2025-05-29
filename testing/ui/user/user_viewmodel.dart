@@ -20,18 +20,13 @@ class UserViewModel extends ChangeNotifier {
   late Command1<void, UserEntity> saveUser;
 
   Future<Result<void>> _saveUser(UserEntity user) async {
-    try {
-      final result = await _userRepository.createUser(user: user);
-      switch (result) {
-        case Ok<void>():
-          notifyListeners();
-          return const Result.ok(null);
-        case Error<void>():
-          notifyListeners();
-          return Result.error(result.error);
-      }
-    } finally {
-      notifyListeners();
+    final result = await _userRepository.createUser(user: user);
+    notifyListeners();
+    switch (result) {
+      case Ok<void>():
+        return const Result.ok(null);
+      case Error<void>():
+        return Result.error(result.error);
     }
   }
 }
