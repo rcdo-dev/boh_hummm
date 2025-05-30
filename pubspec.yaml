@@ -19,6 +19,9 @@ dependencies:
   # Cross-platform path manipulation library for Dart.
   path: ^1.9.1
 
+  # Firebase
+  firebase_core: ^3.13.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

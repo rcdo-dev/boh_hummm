@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "226266413723",
+    "project_id": "boh-hummm-app",
+    "storage_bucket": "boh-hummm-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:226266413723:android:cb5ac74d38d5935b1c643e",
+        "android_client_info": {
+          "package_name": "com.example.boh_hummm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsNW5gYoo83dgOeIUwLhlWFiJ-T_ggN4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
