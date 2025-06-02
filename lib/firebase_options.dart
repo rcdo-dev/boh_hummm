@@ -63,6 +63,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '226266413723',
     projectId: 'boh-hummm-app',
     storageBucket: 'boh-hummm-app.firebasestorage.app',
+    androidClientId: '226266413723-1b4anha66f532oq9ek6jmbqej16gnnh9.apps.googleusercontent.com',
+    iosClientId: '226266413723-gptq5sub6tsqhvco3spoc9q6qpmoftu5.apps.googleusercontent.com',
     iosBundleId: 'com.example.bohHummm',
   );
+
 }
